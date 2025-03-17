@@ -1,8 +1,6 @@
 import os
 import logging
 import pathlib
-from fastapi import FastAPI, Form, HTTPException, Depends
-from fastapi.responses import FileResponse
 from fastapi import FastAPI, Form, HTTPException, Depends, UploadFile, File
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,8 +19,6 @@ db = pathlib.Path(__file__).parent.resolve() / "db" / "mercari.sqlite3"
 
 # Define the path to the images & sqlite3 database & JSON folder
 BASE_DIR = pathlib.Path(__file__).parent.resolve()
-images = BASE_DIR / "images"
-db = BASE_DIR / "db" / "mercari.sqlite3"
 json_file = BASE_DIR / "JSON" / "items.json" 
 
 def get_db():
@@ -53,7 +49,6 @@ app = FastAPI(lifespan=lifespan)
 logger = logging.getLogger("uvicorn")
 logger.level = logging.INFO
 images = pathlib.Path(__file__).parent.resolve() / "images"
-images = BASE_DIR / "images"
 origins = [os.environ.get("FRONT_URL", "http://localhost:3000")]
 app.add_middleware(
     CORSMiddleware,
